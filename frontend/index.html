@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Script Server</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Script Server</h1>
+    <a href="/run-script">Run script</a>
+    <table class="script-table">
+      <thead>
+        <tr>
+          <th>Script</th>
+          <th>Interval</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for script in scripts %}
+        <tr>
+          <th>{{ script.name }}</th>
+          <th>{{ script.interval }}</th>
+          <th><a>more</a></th>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="3" style="text-align: center;">
+          База данных пуста. Добавьте хотя бы один скрипт!
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

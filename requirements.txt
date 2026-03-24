@@ -3,3 +3,6 @@ uvicorn
 apscheduler
 python-multipart
 jinja2
+sqlalchemy
+aiosqlite
+pydantic_settings
