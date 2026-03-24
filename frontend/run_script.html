@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Script Server</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Script Server</h1>
+    <a href="/">Back</a>
+    <form action="/run-script" method="POST">
+      <div class="field">
+        <label for="script_name" id="script_name">Script Name</label>
+        <input type="text" name="script_name">
+      </div>
+      <div class="field">
+        <label for="interval">Interval</label>
+        <input type="number" name="interval">
+      </div>
+      <button type="submit">Run Script</button>
+    </form>
+  </div>
+</body>
+</html>
