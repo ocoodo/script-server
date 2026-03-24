@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey
 from app.database import Model
 
 
-class ScriptJob(Model):
+class Script(Model):
     __tablename__ = 'scripts'
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
@@ -22,6 +22,6 @@ class ScriptOutput(Model):
     error: Mapped[Optional[str]] = mapped_column(nullable=True)
     output: Mapped[Optional[str]] = mapped_column(nullable=True)
     
-    script: Mapped['ScriptJob'] = relationship(
+    script: Mapped['Script'] = relationship(
         back_populates='outputs'
     )

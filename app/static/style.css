@@ -30,16 +30,16 @@ input {
 
 table {
   margin: 2rem 0;
+  padding: 0;
   width: 100%;
   border-collapse: collapse;
 }
 
 th {
-  
   padding: 0.4rem;
 }
 
-thead tr, tbody tr:nth-child(even) {
+.styled-table thead tr, .styled-table tbody tr:nth-child(even) {
   background: #f3f4f6;
 }
 

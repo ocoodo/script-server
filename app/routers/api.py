@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import RedirectResponse
 
-from app.models import ScriptJob
+from app.models import Script
 from app.database import DbSession
 
 router = APIRouter()
@@ -15,7 +15,7 @@ async def run_handler(
     interval: int = Form(...)
 ):
     request.app.state.runner.add_task(script_name, interval)
-    new_script = ScriptJob(
+    new_script = Script(
         name=script_name,
         interval=interval
     )

@@ -9,7 +9,7 @@
   <div class="container">
     <h1>Script Server</h1>
     <a href="/run-script">Run script</a>
-    <table class="script-table">
+    <table class="styled-table">
       <thead>
         <tr>
           <th>Script</th>
@@ -22,7 +22,7 @@
         <tr>
           <th>{{ script.name }}</th>
           <th>{{ script.interval }}</th>
-          <th><a>more</a></th>
+          <th><a href="/scripts/{{ script.name }}">more</a></th>
         </tr>
         {% else %}
         <tr>
