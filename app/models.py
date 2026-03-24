@@ -1,7 +1,7 @@
 from typing import List, Optional
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
-from database import Model
+from app.database import Model
 
 
 class ScriptJob(Model):

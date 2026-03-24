@@ -1,15 +1,12 @@
 from contextlib import asynccontextmanager
-
-from sqlalchemy import select
-from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 
-from database import init_db, DbSession
-from models import ScriptJob
-from engine import RunnerEngine
+from app.routers.pages import router as page_router
+from app.routers.api import router as api_router
+from app.database import init_db
+from app.engine import RunnerEngine
 
 
 @asynccontextmanager
@@ -23,55 +20,9 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-
-app.mount('/styles', StaticFiles(directory='frontend/styles'), name="styles")
-templates = Jinja2Templates(directory='frontend')
-
-
-@app.get('/', response_class=HTMLResponse)
-async def index_page(
-    request: Request,
-    db_session: DbSession
-):
-    query = await db_session.execute(
-        select(ScriptJob)
-    )
-    scripts = query.scalars().all()
-    return templates.TemplateResponse(
-        name='index.html', 
-        request=request,
-        context={
-            "scripts": scripts
-        }
-    )
-
-
-@app.get('/run-script', response_class=HTMLResponse)
-def run_page(request: Request):
-    return templates.TemplateResponse(
-        name='run_script.html', 
-        request=request
-    )
-
-
-@app.post('/run-script', response_class=RedirectResponse)
-async def run_handler( 
-    request: Request,
-    db_session: DbSession,
-    script_name: str = Form(...),
-    interval: int = Form(...)
-):
-    request.app.state.runner.add_task(script_name, interval)
-    new_script = ScriptJob(
-        name=script_name,
-        interval=interval
-    )
-    db_session.add(new_script)
-    await db_session.commit()
-    return RedirectResponse(
-        url='/', 
-        status_code=303
-    )
+app.mount('/styles', StaticFiles(directory='app/static'), name="styles")
+app.include_router(page_router)
+app.include_router(api_router)
 
 
 if __name__ == '__main__':
